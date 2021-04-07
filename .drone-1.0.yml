@@ -31,19 +31,19 @@ steps:
     commands:
       - npx @lennym/ciaudit --retries 5
   - name: docker build
-    image: docker:dind
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     environment:
-      DOCKER_HOST: tcp://docker:2375
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
       NPM_AUTH_TOKEN:
         from_secret: npm_auth_token
     commands:
+      # wait for docker service to be up before running docker build
+      - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
       - docker build --build-arg NPM_AUTH_USERNAME=$${NPM_AUTH_USERNAME} --build-arg NPM_AUTH_TOKEN=$${NPM_AUTH_TOKEN} -t asl-data-exports .
   - name: docker push
-    image: docker:dind
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
     environment:
-      DOCKER_HOST: tcp://docker:2375
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
       NPM_AUTH_TOKEN:
@@ -75,6 +75,4 @@ steps:
 
 services:
 - name: docker
-  image: docker:dind
-  environment:
-    DOCKER_TLS_CERTDIR: ""
+  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind
