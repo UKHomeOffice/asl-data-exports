@@ -15,10 +15,6 @@ steps:
   - name: test
     image: node:12
     environment:
-      DATABASE_NAME: asl-test
-      DATABASE_HOST: postgres
-      DATABASE_USERNAME: asl-test
-      DATABASE_PASSWORD: test-password
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
       NPM_AUTH_TOKEN:
@@ -60,7 +56,7 @@ steps:
       - docker push quay.io/ukhomeofficedigital/asl-data-exports:$${DRONE_COMMIT_SHA}
     when:
       event: push
-      branch: master
+      branch: main
   - name: update manifest
     image: quay.io/ukhomeofficedigital/asl-deploy-bot:latest
     environment:
@@ -75,15 +71,10 @@ steps:
         --version $${DRONE_COMMIT_SHA}
     when:
       event: push
-      branch: master
+      branch: main
 
 services:
 - name: docker
   image: docker:dind
   environment:
     DOCKER_TLS_CERTDIR: ""
-- name: postgres
-  image: postgres
-  environment:
-    POSTGRES_USER: asl-test
-    POSTGRES_PASSWORD: test-password
