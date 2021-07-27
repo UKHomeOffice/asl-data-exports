@@ -33,6 +33,7 @@
     "aws-sdk": "^2.874.0",
     "csv-stringify": "^5.6.2",
     "filenamify": "^4.2.0",
+    "lodash": "^4.17.21",
     "through2": "^4.0.2"
   }
 }
