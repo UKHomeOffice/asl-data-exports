@@ -46,6 +46,7 @@ steps:
   - name: docker push
     image: docker:dind
     environment:
+      DOCKER_HOST: tcp://docker:2375
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
       NPM_AUTH_TOKEN:
