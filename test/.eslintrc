@@ -1,0 +1,8 @@
+extends:
+  - ../.eslintrc
+
+env:
+  mocha: true
+
+rules:
+  implicit-dependencies/no-implicit: [2, { dev: true }]
