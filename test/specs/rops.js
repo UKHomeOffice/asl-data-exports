@@ -167,6 +167,8 @@ describe('ROPs Exporter', () => {
         'telephone',
         'year',
         'status',
+        'due_date',
+        'submission_date',
         'procedures_completed',
         'postnatal',
         'endangered',
