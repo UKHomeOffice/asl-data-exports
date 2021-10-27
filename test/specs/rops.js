@@ -177,7 +177,9 @@ describe('ROPs Exporter', () => {
         'rodenticide',
         'rodenticide_details',
         'schedule_two_details',
-        'procedure_count'
+        'procedure_count',
+        'due_date',
+        'submission_date'
       ];
       assert.deepEqual(Object.keys(this.returns[0]), expected);
     });
