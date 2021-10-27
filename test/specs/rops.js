@@ -167,8 +167,6 @@ describe('ROPs Exporter', () => {
         'telephone',
         'year',
         'status',
-        'due_date',
-        'submission_date',
         'procedures_completed',
         'postnatal',
         'endangered',
@@ -179,7 +177,9 @@ describe('ROPs Exporter', () => {
         'rodenticide',
         'rodenticide_details',
         'schedule_two_details',
-        'procedure_count'
+        'procedure_count',
+        'due_date',
+        'submission_date'
       ];
       assert.deepEqual(Object.keys(this.returns[0]), expected);
     });
