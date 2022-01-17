@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+try {
+  // eslint-disable-next-line implicit-dependencies/no-implicit
+  require('dotenv').config();
+} catch (e) {}
+
+const moment = require('moment');
+const config = require('../config');
+const Logger = require('../lib/utils/logger');
+const logger = Logger(config);
+const db = require('@asl/schema');
+
+const scheduleTaskMetrics = async () => {
+  const { Export } = db(config.db);
+  const prevMonth = moment().subtract(1, 'month');
+  const start = moment(prevMonth).startOf('month').format('YYYY-MM-DD');
+  const end = moment(prevMonth).endOf('month').format('YYYY-MM-DD');
+  const key = prevMonth.format('YYYY-MM');
+  const type = 'task-metrics';
+
+  logger.debug('checking for existing metrics report for previous month');
+  const metricsForLastMonth = await Export.query().where({ type, key }).first();
+
+  if (metricsForLastMonth) {
+    logger.debug('existing report found, exiting');
+    return;
+  }
+
+  logger.debug('metrics report for previous month not found, scheduling export');
+  return Export.query().insert({ type, key, meta: { start, end }, ready: false })
+    .then(() => logger.info(`scheduling task-metrics report for ${key}`));
+};
+
+Promise.resolve()
+  .then(() => scheduleTaskMetrics())
+  .then(() => process.exit(0))
+  .catch(err => {
+    logger.error(err);
+    process.exit(1);
+  });
