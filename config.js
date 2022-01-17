@@ -20,7 +20,7 @@ module.exports = {
     url: process.env.KEYCLOAK_URL,
     client: process.env.KEYCLOAK_CLIENT,
     secret: process.env.KEYCLOAK_SECRET,
-    username: process.env.KEYCLOAK_USER || 'data-exports',
+    username: process.env.KEYCLOAK_USERNAME || 'data-exports',
     password: process.env.KEYCLOAK_PASSWORD
   },
   metrics: {
