@@ -7,7 +7,7 @@ module.exports = {
     secret: process.env.S3_SECRET,
     bucket: process.env.S3_BUCKET,
     kms: process.env.S3_KMS_KEY_ID,
-    endpoint: process.env.S3_ENDPOINT
+    localstackUrl: process.env.S3_LOCALSTACK_URL
   },
   db: {
     database: process.env.DATABASE_NAME,
