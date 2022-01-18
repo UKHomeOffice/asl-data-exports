@@ -4,7 +4,7 @@ const Zip = require('jszip');
 const { BufferListStream } = require('bl');
 const parse = require('csv-parse/lib/sync');
 
-const Builder = require('../../lib/rops/builder');
+const Builder = require('../../lib/exporters/rops');
 
 const db = require('../helpers/db');
 
@@ -23,9 +23,11 @@ describe('ROPs Exporter', () => {
 
       const exporter = Builder({
         models: this.models,
-        upload: ({ key, stream }) => {
-          zipStream = stream;
-          return Promise.resolve({ ETag: 'abc' });
+        clients: {
+          s3: ({ key, stream }) => {
+            zipStream = stream;
+            return Promise.resolve({ ETag: 'abc' });
+          }
         }
       });
 
