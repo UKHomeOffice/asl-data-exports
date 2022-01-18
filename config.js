@@ -6,7 +6,8 @@ module.exports = {
     accessKey: process.env.S3_ACCESS_KEY,
     secret: process.env.S3_SECRET,
     bucket: process.env.S3_BUCKET,
-    kms: process.env.S3_KMS_KEY_ID
+    kms: process.env.S3_KMS_KEY_ID,
+    endpoint: process.env.S3_ENDPOINT
   },
   db: {
     database: process.env.DATABASE_NAME,
