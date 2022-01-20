@@ -23,11 +23,9 @@ describe('ROPs Exporter', () => {
 
       const exporter = Builder({
         models: this.models,
-        clients: {
-          s3: ({ key, stream }) => {
-            zipStream = stream;
-            return Promise.resolve({ ETag: 'abc' });
-          }
+        s3Upload: ({ key, stream }) => {
+          zipStream = stream;
+          return Promise.resolve({ ETag: 'abc' });
         }
       });
 
