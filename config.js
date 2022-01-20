@@ -2,7 +2,7 @@ module.exports = {
   logLevel: process.env.LOG_LEVEL || 'info',
   interval: parseInt(process.env.INTERVAL, 10),
   s3: {
-    region: process.env.S3_REGION,
+    region: process.env.S3_REGION || 'eu-west-2',
     accessKey: process.env.S3_ACCESS_KEY,
     secret: process.env.S3_SECRET,
     bucket: process.env.S3_BUCKET,
@@ -10,9 +10,9 @@ module.exports = {
     localstackUrl: process.env.S3_LOCALSTACK_URL
   },
   db: {
-    database: process.env.DATABASE_NAME,
+    database: process.env.DATABASE_NAME || 'asl',
     host: process.env.DATABASE_HOST,
-    password: process.env.DATABASE_PASSWORD,
+    password: process.env.DATABASE_PASSWORD || 'test-password',
     port: process.env.DATABASE_PORT,
     username: process.env.DATABASE_USERNAME || 'postgres'
   },
