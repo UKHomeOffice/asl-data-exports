@@ -46,7 +46,6 @@
     "filenamify": "^4.2.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
-    "moment-business-time": "^2.0.0",
     "ndjson": "^2.0.0",
     "node-fetch": "^2.6.6",
     "through2": "^4.0.2",
