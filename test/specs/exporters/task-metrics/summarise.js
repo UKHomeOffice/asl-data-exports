@@ -6,9 +6,6 @@ const summarise = require('../../../../lib/exporters/task-metrics/summarise');
 describe('Task Metrics', () => {
 
   describe('Summarise results', () => {
-    beforeEach(() => {
-      this.stats = emptyStats();
-    });
 
     it('it has no affect on the stats if there is no metrics prop', () => {
       const stats = emptyStats();
