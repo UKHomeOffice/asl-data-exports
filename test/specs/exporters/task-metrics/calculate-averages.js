@@ -1,9 +1,9 @@
 const assert = require('assert');
-const calcMeanTimes = require('../../../../lib/exporters/task-metrics/calc-mean-times');
+const calculateAverages = require('../../../../lib/exporters/task-metrics/calculate-averages');
 
 describe('Task Metrics', () => {
 
-  describe('Mean time calculator', () => {
+  describe('Averages calculator', () => {
 
     it('returns dash for empty values', () => {
       const stats = {
@@ -25,7 +25,7 @@ describe('Task Metrics', () => {
         }
       };
 
-      assert.deepEqual(calcMeanTimes(stats), expected);
+      assert.deepEqual(calculateAverages(stats), expected);
     });
 
     it('returns zero for zero values', () => {
@@ -48,7 +48,7 @@ describe('Task Metrics', () => {
         }
       };
 
-      assert.deepEqual(calcMeanTimes(stats), expected);
+      assert.deepEqual(calculateAverages(stats), expected);
     });
 
     it('calculates the mean time taken from submission to action', () => {
@@ -71,7 +71,7 @@ describe('Task Metrics', () => {
         }
       };
 
-      assert.deepEqual(calcMeanTimes(stats), expected);
+      assert.deepEqual(calculateAverages(stats), expected);
     });
 
     it('calculates the mean time taken from assign to action', () => {
@@ -94,7 +94,7 @@ describe('Task Metrics', () => {
         }
       };
 
-      assert.deepEqual(calcMeanTimes(stats), expected);
+      assert.deepEqual(calculateAverages(stats), expected);
     });
 
     it('calculates the median values correctly for odd and even length arrays and empty arrays', () => {
@@ -105,7 +105,7 @@ describe('Task Metrics', () => {
           assignToActionDays: []
         }
       };
-      const output = calcMeanTimes(stats);
+      const output = calculateAverages(stats);
 
       // middle entry of ordered array for odd length arrays
       assert.equal(output.pplApplication.submitToActionDaysMedian, 9);
