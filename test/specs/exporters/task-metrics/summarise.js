@@ -44,6 +44,28 @@ describe('Task Metrics', () => {
       assert.deepEqual(stats, expected);
     });
 
+    it('counts resubmitted tasks', () => {
+      let stats = emptyStats();
+      const task1 = { metrics: { taskType: 'pplApplication', resubmittedCount: 1 } };
+      const task2 = { metrics: { taskType: 'pplApplication', resubmittedCount: 4 } };
+      const task3 = { metrics: { taskType: 'pplAmendment', resubmittedCount: 8 } };
+
+      const expected = merge({}, emptyStats(), {
+        pplApplication: {
+          resubmitted: 5
+        },
+        pplAmendment: {
+          resubmitted: 8
+        }
+      });
+
+      stats = summarise(stats, task1);
+      stats = summarise(stats, task2);
+      stats = summarise(stats, task3);
+
+      assert.deepEqual(stats, expected);
+    });
+
     it('counts approved tasks if they have a resolvedAt time', () => {
       let stats = emptyStats();
       const task1 = { status: 'resolved', metrics: { taskType: 'pplApplication', resolvedAt: '2021-12-01' } };
