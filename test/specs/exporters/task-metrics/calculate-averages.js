@@ -118,6 +118,22 @@ describe('Task Metrics', () => {
 
     });
 
+    it('preserves non-average values on input data', () => {
+      const stats = {
+        pplApplication: {
+          submitted: 5,
+          resubmitted: 9,
+          submitToActionDays: [5, 2, 10, 9, 30],
+          resubmitToActionDays: [2, 6, 1, 8],
+          assignToActionDays: []
+        }
+      };
+      const output = calculateAverages(stats);
+
+      assert.equal(output.pplApplication.submitted, 5);
+      assert.equal(output.pplApplication.resubmitted, 9);
+    });
+
   });
 
 });
