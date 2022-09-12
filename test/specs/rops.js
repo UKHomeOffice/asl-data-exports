@@ -126,6 +126,17 @@ describe('ROPs Exporter', () => {
             newGeneticLine: false,
             severity: 'severe',
             severityNum: 200
+          },
+          {
+            ropId: ROP_ID,
+            species: 'common-frogs',
+            ga: 'false',
+            purposes: 'basic',
+            basicSubpurposes: 'oncology',
+            newGeneticLine: false,
+            severity: 'severe',
+            severityNum: 300,
+            severityHoNote: 'Common Frogs'
           }
         ]);
       });
@@ -194,7 +205,7 @@ describe('ROPs Exporter', () => {
       assert.equal(proj1.first_name, 'Test');
       assert.equal(proj1.last_name, 'User');
       assert.equal(proj1.status, 'submitted');
-      assert.equal(proj1.procedure_count, '2');
+      assert.equal(proj1.procedure_count, '3');
 
       assert.equal(proj2.first_name, 'Test');
       assert.equal(proj2.last_name, 'User');
@@ -252,6 +263,12 @@ describe('ROPs Exporter', () => {
 
     it('maps sub-purposes to single column', () => {
       assert.equal(this.procedures[0].sub_purpose, 'oncology');
+    });
+
+    it('maps common-frogs to african-frogs', () => {
+      const procedure = this.procedures.find(p => p.comments_for_ho === 'Common Frogs');
+      assert.ok(procedure);
+      assert.equal(procedure.species, 'african-frogs');
     });
 
   });
