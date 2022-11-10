@@ -4,7 +4,7 @@ name: default
 type: kubernetes
 steps:
   - name: install
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
@@ -20,7 +20,7 @@ steps:
       # wait for postgres service to become available
       - until psql -U asl-test -d asl-test -h postgres -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
   - name: test
-    image: node:14
+    image: node:18
     environment:
       DATABASE_NAME: asl-test
       DATABASE_HOST: postgres
@@ -33,7 +33,7 @@ steps:
     commands:
       - npm test
   - name: audit
-    image: node:14
+    image: node:18
     environment:
       NPM_AUTH_USERNAME:
         from_secret: npm_auth_username
