@@ -38,8 +38,8 @@
   },
   "dependencies": {
     "@asl/constants": "^1.2.2",
-    "@asl/schema": "^10.13.1",
-    "@asl/service": "^8.10.0",
+    "@asl/schema": "^10.16.0",
+    "@asl/service": "^9.2.0",
     "archiver": "^5.3.0",
     "aws-sdk": "^2.874.0",
     "csv-stringify": "^5.6.2",
