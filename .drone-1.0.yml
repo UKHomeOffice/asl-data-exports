@@ -54,6 +54,11 @@ steps:
       # wait for docker service to be up before running docker build
       - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
       - docker build --secret id=username,env=NPM_AUTH_USERNAME --secret id=token,env=NPM_AUTH_TOKEN -t asl-data-exports .
+  - name: scan-image
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    environment:
+      IMAGE_NAME: asl-data-exports
   - name: docker push
     image: docker:dind
     environment:
@@ -97,3 +102,8 @@ services:
   environment:
     POSTGRES_USER: asl-test
     POSTGRES_PASSWORD: test-password
+- name: anchore-submission-server
+  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+  pull: always
+  commands:
+    - /run.sh server
