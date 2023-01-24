@@ -8,6 +8,7 @@
     "test:lint": "eslint .",
     "pretest:unit": "npm run migrate",
     "test:unit": "mocha ./test/specs --recursive",
+    "test:audit": "audit-ci --high --skip-dev --config .auditrc.json",
     "migrate": "DATABASE_NAME=asl-test NODE_ENV=test knex migrate:latest --knexfile ./node_modules/@asl/schema/knexfile.js",
     "test": "npm run test:lint && npm run test:unit"
   },
@@ -26,6 +27,7 @@
   },
   "homepage": "https://github.com/UKHomeOffice/asl-data-exports#readme",
   "devDependencies": {
+    "audit-ci": "^6.5.0",
     "bl": "^5.0.0",
     "csv-parse": "^4.16.3",
     "dotenv": "^8.2.0",
