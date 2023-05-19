@@ -1,4 +1,3 @@
-
 kind: pipeline
 name: default
 type: kubernetes
@@ -6,10 +5,10 @@ steps:
   - name: install
     image: node:18
     environment:
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
       - npm ci
   - name: wait
@@ -26,19 +25,19 @@ steps:
       DATABASE_HOST: postgres
       DATABASE_USERNAME: asl-test
       DATABASE_PASSWORD: test-password
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
       - npm test
   - name: audit
     image: node:18
     environment:
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
       - npm run test:audit
   - name: docker build
@@ -46,14 +45,14 @@ steps:
     environment:
       DOCKER_HOST: tcp://docker:2375
       DOCKER_BUILDKIT: 1
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
     commands:
       # wait for docker service to be up before running docker build
       - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
-      - docker build --secret id=username,env=NPM_AUTH_USERNAME --secret id=token,env=NPM_AUTH_TOKEN -t asl-data-exports .
+      - docker build --secret id=token,env=ART_AUTH_TOKEN --secret id=github_token,env=GITHUB_AUTH_TOKEN -t asl-data-exports .
   - name: scan-image
     image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
     pull: always
@@ -64,10 +63,10 @@ steps:
     image: docker:dind
     environment:
       DOCKER_HOST: tcp://docker:2375
-      NPM_AUTH_USERNAME:
-        from_secret: npm_auth_username
-      NPM_AUTH_TOKEN:
-        from_secret: npm_auth_token
+      ART_AUTH_TOKEN:
+        from_secret: art_auth_token
+      GITHUB_AUTH_TOKEN:
+        from_secret: github_token
       DOCKER_PASSWORD:
         from_secret: docker_password
     commands:
@@ -94,17 +93,17 @@ steps:
       branch: main
 
 services:
-- name: docker
-  image: docker:dind
-  environment:
-    DOCKER_TLS_CERTDIR: ""
-- name: postgres
-  image: postgres
-  environment:
-    POSTGRES_USER: asl-test
-    POSTGRES_PASSWORD: test-password
-- name: anchore-submission-server
-  image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-  pull: always
-  commands:
-    - /run.sh server
+  - name: docker
+    image: docker:dind
+    environment:
+      DOCKER_TLS_CERTDIR: ""
+  - name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: asl-test
+      POSTGRES_PASSWORD: test-password
+  - name: anchore-submission-server
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    pull: always
+    commands:
+      - /run.sh server
