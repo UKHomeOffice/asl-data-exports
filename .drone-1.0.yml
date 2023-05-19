@@ -26,7 +26,7 @@ steps:
       DATABASE_USERNAME: asl-test
       DATABASE_PASSWORD: test-password
       ART_AUTH_TOKEN:
-        from_secret: aut_auth_token
+        from_secret: art_auth_token
       GITHUB_AUTH_TOKEN:
         from_secret: github_token
     commands:
@@ -35,7 +35,7 @@ steps:
     image: node:18
     environment:
       ART_AUTH_TOKEN:
-        from_secret: aut_auth_token
+        from_secret: art_auth_token
       GITHUB_AUTH_TOKEN:
         from_secret: github_token
     commands:
@@ -46,7 +46,7 @@ steps:
       DOCKER_HOST: tcp://docker:2375
       DOCKER_BUILDKIT: 1
       ART_AUTH_TOKEN:
-        from_secret: aut_auth_token
+        from_secret: art_auth_token
       GITHUB_AUTH_TOKEN:
         from_secret: github_token
     commands:
@@ -64,7 +64,7 @@ steps:
     environment:
       DOCKER_HOST: tcp://docker:2375
       ART_AUTH_TOKEN:
-        from_secret: aut_auth_token
+        from_secret: art_auth_token
       GITHUB_AUTH_TOKEN:
         from_secret: github_token
       DOCKER_PASSWORD:
