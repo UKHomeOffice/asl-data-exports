@@ -54,7 +54,7 @@ steps:
       - n=0; while [ "$n" -lt 60 ] && [ ! docker stats --no-stream ]; do n=$(( n + 1 )); sleep 1; done
       - docker build --secret id=token,env=ART_AUTH_TOKEN --secret id=github_token,env=GITHUB_AUTH_TOKEN -t asl-data-exports .
   - name: scan-image
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
+    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/trivy/client:latest
     pull: always
     environment:
       IMAGE_NAME: asl-data-exports
@@ -102,8 +102,3 @@ services:
     environment:
       POSTGRES_USER: asl-test
       POSTGRES_PASSWORD: test-password
-  - name: anchore-submission-server
-    image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/anchore-submission:latest
-    pull: always
-    commands:
-      - /run.sh server
