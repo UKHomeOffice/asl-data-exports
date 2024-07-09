@@ -39,8 +39,8 @@
     "uuid": "^8.3.2"
   },
   "dependencies": {
-    "@asl/schema": "^10.16.4",
-    "@asl/service": "^10.0.2",
+    "@asl/schema": "^10.18.3",
+    "@asl/service": "^10.3.2",
     "archiver": "^5.3.0",
     "aws-sdk": "^2.874.0",
     "csv-stringify": "^5.6.2",
