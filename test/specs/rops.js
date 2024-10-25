@@ -238,6 +238,8 @@ describe('ROPs Exporter', () => {
         'id',
         'species',
         'other_species',
+        'endangered',
+        'details_of_endangered',
         'no_of_procedures',
         'reuse',
         'place_of_birth',
