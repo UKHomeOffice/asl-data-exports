@@ -1,5 +1,5 @@
 const assert = require('assert');
-const uuid = require('uuid').v4;
+const { v4: uuid } = require('uuid');
 const Zip = require('jszip');
 const { BufferListStream } = require('bl');
 const parse = require('csv-parse/lib/sync');

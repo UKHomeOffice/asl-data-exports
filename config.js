@@ -25,6 +25,6 @@ module.exports = {
     password: process.env.KEYCLOAK_PASSWORD
   },
   metrics: {
-    url: process.env.METRICS_SERVICE
+    url: process.env.METRICS_SERVICE || 'http://localhost:8089'
   }
 };

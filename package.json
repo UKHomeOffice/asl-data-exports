@@ -9,7 +9,7 @@
     "pretest:unit": "npm run migrate",
     "test:unit": "mocha ./test/specs --recursive",
     "test:audit": "audit-ci --high --skip-dev --config .auditrc.json",
-    "migrate": "DATABASE_NAME=asl-test NODE_ENV=test knex migrate:latest --knexfile ./node_modules/@asl/schema/knexfile.js",
+    "migrate": "DATABASE_NAME=asl-test NODE_ENV=test knex migrate:latest --knexfile ../../node_modules/@asl/schema/knexfile.js",
     "test": "npm run test:lint && npm run test:unit"
   },
   "repository": {
@@ -36,10 +36,10 @@
     "jszip": "^3.7.1",
     "mocha": "^9.2.0",
     "nodemon": "^2.0.7",
-    "uuid": "^8.3.2"
+    "uuid": "^11.0.1"
   },
   "dependencies": {
-    "@asl/schema": "^10.16.4",
+    "@asl/schema": "^11.0.0",
     "@asl/service": "^10.0.2",
     "archiver": "^5.3.0",
     "aws-sdk": "^2.874.0",
