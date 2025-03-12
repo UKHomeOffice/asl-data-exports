@@ -1,6 +1,6 @@
 {
   "name": "asl-data-exports",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@asl/schema": "^11.0.0",
-    "@asl/service": "^10.0.2",
+    "@asl/service": "^11.0.1",
     "archiver": "^5.3.0",
     "aws-sdk": "^2.874.0",
     "csv-stringify": "^5.6.2",
